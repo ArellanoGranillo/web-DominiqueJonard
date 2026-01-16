@@ -1,0 +1,42 @@
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+
+<style>
+ body {
+     margin: 0;
+     font-family: 'Poppins', sans-serif;
+     background: linear-gradient(135deg, #cdb4db, #f77f00, #6b8e23);
+     color: #ffffff;
+     min-height: 100vh;
+ }
+
+
+.header {
+    background-color: rgba(205, 180, 219, 0.85); /* lila */
+    padding: 30px;
+    text-align: center;
+}
+
+
+.header h1 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+
+.nav {
+    margin-top: 15px;
+}
+
+
+.nav a {
+    margin: 0 14px;
+    text-decoration: none;
+    color: #6b8e23; /* verde olivo */
+    font-weight: 500;
+    font-size: 0.95rem;
+</style>

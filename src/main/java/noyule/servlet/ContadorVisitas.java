@@ -1,38 +1,22 @@
 package noyule.servlet;
-
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebFilter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet("/contador")
-public class ContadorServlet extends HttpServlet {
+@WebFilter("/index.jsp")
+public class ContadorVisitas implements Filter {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private static int contador = 0;
 
-        HttpSession session = request.getSession();
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-        Integer visitas = (Integer) session.getAttribute("visitas");
+        contador++; // cuenta cada acceso a index.jsp
 
-        if (visitas == null) {
-            visitas = 1;
-        } else {
-            visitas++;
-        }
+        System.out.println("Visita a Inicio/Index número: " + contador);
 
-        session.setAttribute("visitas", visitas);
-
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-
-        out.println("<h2>Contador de visitas (demo Java)</h2>");
-        out.println("<p>Has visitado este servlet: <b>" + visitas + "</b> veces en esta sesión.</p>");
-
+        chain.doFilter(request, response);
     }
 }
