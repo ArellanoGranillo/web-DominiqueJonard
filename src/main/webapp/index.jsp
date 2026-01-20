@@ -153,7 +153,7 @@
                 padding: 80px 90px;
                 display: flex;
                 flex-direction: column;
-                gap: 55px;
+                gap: 90px;
             }
         }
     </style>
