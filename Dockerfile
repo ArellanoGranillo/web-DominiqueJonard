@@ -1,20 +1,10 @@
-# ---- FASE 1: Compilar tu proyecto con Maven ----
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM tomcat:11.0-jdk21-temurin
 
-WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-
-RUN mvn clean package -DskipTests
-
-# ---- FASE 2: Ejecutar en Tomcat ----
-FROM tomcat:11-jdk17
-
-# Borra apps por defecto de Tomcat
+# Limpiar apps por defecto
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copia tu WAR como aplicación raíz
-COPY --from=build /app/target/noyule-web-1.0-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+# Copiar TODO el contenido web a ROOT
+COPY . /usr/local/tomcat/webapps/ROOT
 
 EXPOSE 8080
 
