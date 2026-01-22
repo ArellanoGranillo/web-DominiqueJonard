@@ -1,11 +1,13 @@
-FROM tomcat:11.0-jdk21-temurin
+FROM eclipse-temurin:17-jre
 
-# Limpiar apps por defecto
-RUN rm -rf /usr/local/tomcat/webapps/*
+WORKDIR /app
+COPY . /app
 
-# Copiar TODO el contenido web a ROOT
-COPY . /usr/local/tomcat/webapps/ROOT
+# Render asigna el puerto mediante la variable PORT
+ENV PORT=${PORT}
+EXPOSE ${PORT}
 
-EXPOSE 8080
+# Servimos contenido estático con un mini servidor Java (por ejemplo Jetty)
+RUN curl -L https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-runner/9.4.50.v20221201/jetty-runner-9.4.50.v20221201.jar -o jetty-runner.jar
 
-CMD ["catalina.sh", "run"]
+CMD ["java", "-jar", "jetty-runner.jar", "--port", "${PORT}", "/app"]
